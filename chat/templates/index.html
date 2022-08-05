@@ -1,0 +1,65 @@
+<!-- chat/templates/chat/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport"/>
+
+    <title>入群邀请</title>
+</head>
+<style>
+    .box {
+        position: fixed;
+        right: 0;
+        bottom: 0;
+        margin: auto;
+        top: 30%;
+        left: 0;
+    }
+
+    body {
+        width: 100vw;
+        height: 100vh;
+        color: #fff;
+        background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+        background-size: 400% 400%;
+        -webkit-animation: Gradient 15s ease infinite;
+        -moz-animation: Gradient 15s ease infinite;
+        animation: Gradient 15s ease infinite;
+    }
+
+</style>
+<body class="bd">
+
+<div class="div1">
+    {#<div class="div2">正常图片</div>#}
+    <div class="box">
+        请输入你的楼层号（格式为: 26#14 Mr邢）:<br><br><input id="room-name-input" type="text" size="50"><br><br>
+        <input id="room-name-submit" type="button" value="进入聊天" style="display: block;margin: auto">
+    </div>
+</div>
+<script>
+    var storage = window.localStorage;
+    if (storage.getItem('username')) {
+        window.location.pathname = '/chat/room1/' + storage.getItem('username') + '/';
+    }
+
+
+    document.querySelector('#room-name-input').focus();
+    document.querySelector('#room-name-input').onkeyup = function (e) {
+        if (e.keyCode === 13) {  // enter, return
+            document.querySelector('#room-name-submit').click();
+        }
+    };
+    document.querySelector('#room-name-submit').onclick = function (e) {
+        var roomName = document.querySelector('#room-name-input').value;
+        if (roomName) {
+            storage.setItem('username', roomName)
+            window.location.pathname = '/chat/room1/' + storage.getItem('username') + '/';
+        } else {
+            alert('需要输入名字，才能开始聊天')
+        }
+    };
+</script>
+</body>
+</html>
